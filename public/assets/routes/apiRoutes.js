@@ -7,27 +7,16 @@ const path = require('path');
 
 module.exports = (app) => {
     // GET REQUEST 
-    function writeToDB(notes) {
-        newNote = JSON.stringify(notes)
-        console.log(notes)
-        fs.writeFileSync("../../../db/db.json", notes, function(err) {
-            if(err) {
-                return console.log("Error JS15)")
-            }
-        })
-    }
-    app.get('api/note', (req, res) => res.json(data));
+    app.get('/api/notes', (req, res) => res.json(data));
 
     // POST REQUEST 
     app.post('/api/notes', (req, res) => {
-        if (data.length == 0) {
-            req.body.id = "0";
-        } else {
-            req.body.id = JSON.stringify(json.parse(data[data.length -1].id) +1)
-        }
         console.log("Note #" + req.body.id + " Has been saved");
-        data.push(req.body)
-        writeToDB(data);
-        res.json(req.body);
+        const note = req.body;
+        data.push(note);
+        fs.writeFileSync(
+            path.join(__dirname, "../../db/db.json"),
+            JSON.stringify([notes, null , 2]))
+        res.json(note);
     })
 }
