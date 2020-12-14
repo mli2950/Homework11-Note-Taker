@@ -10,7 +10,7 @@ module.exports = (app) => {
     function writeToDB(notes) {
         newNote = JSON.stringify(notes)
         console.log(notes)
-        fs.writeFileSync("../../../db/db.json", notes, funciton(err) {
+        fs.writeFileSync("../../../db/db.json", notes, function(err) {
             if(err) {
                 return console.log("Error JS15)")
             }
