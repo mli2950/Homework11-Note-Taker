@@ -15,6 +15,7 @@ module.exports = (app) => {
     // POST REQUEST 
     app.post('/api/notes', (req, res) => {
         console.log("Note has been saved");
+        req.body.id = uniqid();
         const note = req.body;
         data.push(note);
         console.log(data)
