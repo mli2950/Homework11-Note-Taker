@@ -2,29 +2,26 @@
 const data = require('../../db/db.json');
 const fs = require('fs');
 const path = require('path');
+const uniqid = require("uniqid")
 
 // ROUTING
 
 module.exports = (app) => {
 
-    function writeToDb(notes) {
-        newNote = JSON.stringify(notes)
-        fs.writeFileSync("./db/db.json", newNote, function (err) {
-            if (err) {
-                return console.log("Error apiRoutes.14")
-            }
-        })
-    }
     // GET REQUEST 
     app.get('/api/notes', (req, res) => {
         res.json(data)});
 
     // POST REQUEST 
     app.post('/api/notes', (req, res) => {
-        console.log("Note #" + req.body + " Has been saved");
+        console.log("Note has been saved");
         const note = req.body;
-        data.push(req.body);
-        writeToDb(req.body);
-        return res.json(req.body);
+        data.push(note);
+        console.log(data)
+        fs.writeFileSync(path.join(__dirname, "../../db/db.json"),
+            JSON.stringify(data)
+        )
+        
+        return res.json(note);
     })
 }
